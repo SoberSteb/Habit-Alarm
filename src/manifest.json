@@ -1,0 +1,21 @@
+{
+
+  "manifest_version": 2,
+  "name": "Incremental Productivity",
+  "version": "0.1",
+
+  "description": "Gamify your life! Do productive tasks in exchange for more browsing time.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "browser_action": {
+    "default_icon": {
+     "32" : "icons/border-32.png"
+    },
+    "default_title": "Incremental Productivity",
+    "default_popup": "popup/quicknote.html"
+  }
+
+}
