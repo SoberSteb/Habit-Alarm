@@ -16,6 +16,14 @@
     },
     "default_title": "Incremental Productivity",
     "default_popup": "popup/productivity.html"
+  },
+
+  "permissions": {
+    "storage"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
   }
 
 }
