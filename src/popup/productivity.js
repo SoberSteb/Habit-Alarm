@@ -4,10 +4,29 @@ var addBtn = document.querySelector('.add');
 
 var time_left = 0; // In seconds.
 
-updateDisplay(); // Just to overwrite anything that the button says.
-
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
+
+updateDisplay(); // Just to overwrite anything that the button says.
+
+// Start a timer that executes every second. This will take away a second...every second.
+// TODO: Make sure that the timer doesn't start if the time is 0.
+setTimeout(tickFunction, 1000);
+
+function tickFunction() {
+  // Take away a second off of time_left.
+  time_left--;
+  // Make sure it doesn't go to the negatives.
+  if(time_left < 0) {
+    time_left = 0;
+  }
+
+  // Update the display.
+  updateDisplay();
+
+  // And finally, start the timer again.
+  setTimeout(tickFunction, 1000);
+}
 
 function updateDisplay() {
   // Update the total amount of time.
