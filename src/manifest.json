@@ -18,9 +18,7 @@
     "default_popup": "popup/productivity.html"
   },
 
-  "permissions": {
-    "storage"
-  },
+  "permissions": ["storage"],
 
   "background": {
     "scripts": ["background.js"]

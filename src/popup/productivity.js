@@ -21,6 +21,14 @@ function tickFunction() {
     time_left = 0;
   }
 
+  // debug
+  var hey = 0;
+  hey += browser.runtime.sendMessage({
+    type: "updateTick"
+  });
+
+  console.log(hey);
+
   // Update the display.
   updateDisplay();
 
