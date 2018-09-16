@@ -2,8 +2,6 @@
 var timeContainer = document.querySelector('.time-container')
 var addBtn = document.querySelector('.add');
 
-var time_left = 0; // In seconds.
-
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
 
@@ -13,21 +11,28 @@ updateDisplay(); // Just to overwrite anything that the button says.
 // TODO: Make sure that the timer doesn't start if the time is 0.
 setTimeout(tickFunction, 1000);
 
+/*
+ * Get Time From Background (GTFB).
+ * Basically, it reaches into the extension window and grabs the global variable global_time_left.
+ * Yes, I know that global variables are a bad practice. But when I was trying sending and receiving
+ * messages from the popup js to the background js, I was at a complete loss. This is much easier to
+ * execute. I do know that using global variables can be circumvented by using local storage, buuuut...
+ * I needed to accomplish this first.
+ */
+function GTFB() {
+  return browser.extension.getBackgroundPage().global_time_left;
+}
+
 function tickFunction() {
+  // Get the time from the background script and assign it a variable.
+  var time_left = GTFB();
+
   // Take away a second off of time_left.
   time_left--;
   // Make sure it doesn't go to the negatives.
   if(time_left < 0) {
     time_left = 0;
   }
-
-  // debug
-  var hey = 0;
-  hey += browser.runtime.sendMessage({
-    type: "updateTick"
-  });
-
-  console.log(hey);
 
   // Update the display.
   updateDisplay();
@@ -38,13 +43,15 @@ function tickFunction() {
 
 function updateDisplay() {
   // Update the total amount of time.
-  document.querySelector('.timer').innerHTML = "Time left: " + formatTime(time_left) + ".";
+  document.querySelector('.timer').innerHTML = "Time left: " + formatTime() + ".";
 }
 
 function addTime() {
+  // Get the time from the background script and assign it a variable.
+  var time_left = GTFB();
+
   // Add the time to the total amount of time left.
   time_left += 15 * 60; // * 60 because we want 15 minutes in seconds.
-
   updateDisplay();
 }
 
@@ -52,7 +59,10 @@ function addTime() {
  * Take any number of seconds and spit out how many minutes and seconds the user has
  * left to browse.
  */
-function formatTime(time) {
+function formatTime() {
+  // Get the time from the background script and assign it a variable.
+  var time = GTFB();
+
   // Figure out how many hours, minutes, and seconds there are in the given time.
   // Code shameleslly "inspired" from:
   //  https://stackoverflow.com/questions/26794703/swift-integer-conversion-to-hours-minutes-seconds
