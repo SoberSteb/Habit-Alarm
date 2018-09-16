@@ -23,6 +23,19 @@ function GTFB() {
   return browser.extension.getBackgroundPage().global_time_left;
 }
 
+/*
+ * Set Global Time (SGT).
+ * Sets the global time from the background script.
+ */
+function SGT(time) {
+  // If the input time is negative for whatever reason, make it 0.
+  if(time < 0) {
+    time = 0;
+  }
+
+  browser.extension.getBackgroundPage().global_time_left = time;
+}
+
 function tickFunction() {
   // Get the time from the background script and assign it a variable.
   var time_left = GTFB();
@@ -33,6 +46,8 @@ function tickFunction() {
   if(time_left < 0) {
     time_left = 0;
   }
+  // Finally, set the newly modified time to the global time.
+  SGT(time_left);
 
   // Update the display.
   updateDisplay();
@@ -49,9 +64,12 @@ function updateDisplay() {
 function addTime() {
   // Get the time from the background script and assign it a variable.
   var time_left = GTFB();
-
   // Add the time to the total amount of time left.
   time_left += 15 * 60; // * 60 because we want 15 minutes in seconds.
+  // Set the time to the global time.
+  SGT(time_left);
+
+  // Update the display.
   updateDisplay();
 }
 
