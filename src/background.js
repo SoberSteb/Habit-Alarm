@@ -15,6 +15,8 @@ const CSS_hidePage = `body > :not(.beastify-image) {
 
 // Start a timer that executes every second. This will take away a second...every second.
 // TODO: Make sure that the timer doesn't start if the time is 0.
+// That is, make sure that after the user adds <x> amount of time, it doesn't go from
+// 15:00 -> 14:59 in less than a second.
 setTimeout(tickFunction, 1000);
 
 function tickFunction() {
@@ -29,8 +31,12 @@ function tickFunction() {
 	// Otherwise, show the contents again.
 	if(global_time_left <= 0) {
 		browser.tabs.query({active: true, currentWindow: true})
-        .then(hidePage)
-        .catch(reportError);
+			.then(hidePage)
+			.catch(reportError);
+	} else {
+		browser.tabs.query({active: true, currentWindow: true})
+			.then(showPage)
+			.catch(reportError);
 	}
 
   // And finally, start the timer again.
@@ -45,15 +51,15 @@ function tickFunction() {
 	}
 
 /**
- * Insert the page-hiding CSS into the active tab,
- * then get the beast URL and
- * send a "beastify" message to the content script in the active tab.
+ * Insert the page-hiding CSS into the active tab.
  */
 function hidePage(tabs) {
-	// TODO: Move the inserting of the CSS code into a CONTENT script, since
-	// background scripts CANNOT access page elements by default.
-	// First, hide the contents of the current webpage.
-	browser.tabs.insertCSS({code: CSS_hidePage}).then(() => {
-		var test = 1;
-	});
+	browser.tabs.insertCSS({code: CSS_hidePage});
+}
+
+/**
+ * Remove the page-hiding CSS from the active tab.
+ */
+function showPage(tabs) {
+	browser.tabs.removeCSS({code: CSS_hidePage});
 }
