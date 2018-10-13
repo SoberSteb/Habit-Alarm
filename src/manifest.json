@@ -18,7 +18,10 @@
     "default_popup": "popup/productivity.html"
   },
 
-  "permissions": ["storage"],
+  "permissions": [
+		"activeTab",
+		"storage"
+	],
 
   "background": {
     "scripts": ["background.js"]
