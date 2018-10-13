@@ -7,9 +7,8 @@ addBtn.addEventListener('click', addTime);
 
 updateDisplay(); // Just to overwrite anything that the button says.
 
-// Start a timer that executes every second. This will take away a second...every second.
-// TODO: Make sure that the timer doesn't start if the time is 0.
-setTimeout(tickFunction, 1000);
+// Start the main loop. The main loop function is at the bottom of the script.
+setTimeout(mainLoop, 1/30);
 
 /*
  * Get Time From Background (GTFB).
@@ -34,26 +33,6 @@ function SGT(time) {
   }
 
   browser.extension.getBackgroundPage().global_time_left = time;
-}
-
-function tickFunction() {
-  // Get the time from the background script and assign it a variable.
-  var time_left = GTFB();
-
-  // Take away a second off of time_left.
-  time_left--;
-  // Make sure it doesn't go to the negatives.
-  if(time_left < 0) {
-    time_left = 0;
-  }
-  // Finally, set the newly modified time to the global time.
-  SGT(time_left);
-
-  // Update the display.
-  updateDisplay();
-
-  // And finally, start the timer again.
-  setTimeout(tickFunction, 1000);
 }
 
 function updateDisplay() {
@@ -92,4 +71,15 @@ function formatTime() {
 
   // Return a string including these numbers.
   return (hours + " H " + minutes + " M " + seconds + " S");
+}
+
+/*
+ * Run the popup at 30 fps.
+ */
+function mainLoop() {
+  // Update the display to accurately reflect the seconds remaining.
+  updateDisplay();
+
+  // Repeat the loop.
+  setTimeout(mainLoop, 1/30);
 }
