@@ -19,7 +19,7 @@ setTimeout(mainLoop, 1/30);
  * I needed to accomplish this first.
  */
 function GTFB() {
-  return browser.extension.getBackgroundPage().global_time_left;
+	return browser.extension.getBackgroundPage().global_time_left;
 }
 
 /*
@@ -27,29 +27,29 @@ function GTFB() {
  * Sets the global time from the background script.
  */
 function SGT(time) {
-  // If the input time is negative for whatever reason, make it 0.
-  if(time < 0) {
-    time = 0;
-  }
+	// If the input time is negative for whatever reason, make it 0.
+	if(time < 0) {
+		time = 0;
+	}
 
-  browser.extension.getBackgroundPage().global_time_left = time;
+	browser.extension.getBackgroundPage().global_time_left = time;
 }
 
 function updateDisplay() {
-  // Update the total amount of time.
-  document.querySelector('.timer').innerHTML = "Time left: " + formatTime() + ".";
+	// Update the total amount of time.
+	document.querySelector('.timer').innerHTML = "Time left: " + formatTime() + ".";
 }
 
 function addTime() {
-  // Get the time from the background script and assign it a variable.
-  var time_left = GTFB();
-  // Add the time to the total amount of time left.
-  time_left += 15 * 60; // * 60 because we want 15 minutes in seconds.
-  // Set the time to the global time.
-  SGT(time_left);
+	// Get the time from the background script and assign it a variable.
+	var time_left = GTFB();
+	// Add the time to the total amount of time left.
+	time_left += 15 * 60; // * 60 because we want 15 minutes in seconds.
+	// Set the time to the global time.
+	SGT(time_left);
 
-  // Update the display.
-  updateDisplay();
+	// Update the display.
+	updateDisplay();
 }
 
 /*
@@ -57,29 +57,29 @@ function addTime() {
  * left to browse.
  */
 function formatTime() {
-  // Get the time from the background script and assign it a variable.
-  var time = GTFB();
+	// Get the time from the background script and assign it a variable.
+	var time = GTFB();
 
-  // Figure out how many hours, minutes, and seconds there are in the given time.
-  // Code shameleslly "inspired" from:
-  //  https://stackoverflow.com/questions/26794703/swift-integer-conversion-to-hours-minutes-seconds
-  // I added the Math.floor() function to all of them as it would be a bit weird without it.
-  //  For example, if there were only 30 minutes, then it would display: "0.5 H 30 M 0 S".
-  var hours = Math.floor(time / 3600);
-  var minutes = Math.floor((time % 3600) / 60);
-  var seconds = Math.floor((time % 3600) % 60);
+	// Figure out how many hours, minutes, and seconds there are in the given time.
+	// Code shameleslly "inspired" from:
+	//  https://stackoverflow.com/questions/26794703/swift-integer-conversion-to-hours-minutes-seconds
+	// I added the Math.floor() function to all of them as it would be a bit weird without it.
+	//  For example, if there were only 30 minutes, then it would display: "0.5 H 30 M 0 S".
+	var hours = Math.floor(time / 3600);
+	var minutes = Math.floor((time % 3600) / 60);
+	var seconds = Math.floor((time % 3600) % 60);
 
-  // Return a string including these numbers.
-  return (hours + " H " + minutes + " M " + seconds + " S");
+	// Return a string including these numbers.
+	return (hours + " H " + minutes + " M " + seconds + " S");
 }
 
 /*
  * Run the popup at 30 fps.
  */
 function mainLoop() {
-  // Update the display to accurately reflect the seconds remaining.
-  updateDisplay();
+	// Update the display to accurately reflect the seconds remaining.
+	updateDisplay();
 
-  // Repeat the loop.
-  setTimeout(mainLoop, 1/30);
+	// Repeat the loop.
+	setTimeout(mainLoop, 1/30);
 }
