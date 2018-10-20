@@ -70,8 +70,20 @@ function formatTime() {
 	var seconds = Math.floor((time % 3600) % 60);
 
 	// Return a string including these numbers.
-	return (hours + " H " + minutes + " M " + seconds + " S");
+	return (hours + ":" + padString(minutes, 2) + ":" + padString(seconds, 2));
 }
+
+/*
+ * Pad strings with 0s.
+ * Code source: https://gist.github.com/endel/321925f6cafa25bbfbde
+ * Slightly modified to work as an addon.
+ */
+function padString(string, size) {
+	var s = String(string);
+	while (s.length < (size || 2)) {s = "0" + s;}
+	return s;
+}
+
 
 /*
  * Run the popup at 30 fps.
