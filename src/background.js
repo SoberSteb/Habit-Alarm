@@ -21,7 +21,7 @@ loadRemainingTime();
 // 15:00 -> 14:59 in less than a second.
 setTimeout(tickFunction, 1000);
 // Store the remaining amount of time in 30 second increments.
-setTimeout(saveFunction, 3000);
+setTimeout(saveFunction, 30000);
 
 function onError(error) {
 	console.log(error);
@@ -106,6 +106,10 @@ function saveFunction() {
 	}
 
 	// Store the time as "Time" locally.
+	// Taking a look at this after some time passed:
+	//   I have no idea why saving as an object and then looking for
+	//   some storage identified by one of the object's dictionary
+	//   values works. I'm leaving this as is.
 	var storing_time = browser.storage.local.set(time_object);
 
 	storing_time.then(() => {
