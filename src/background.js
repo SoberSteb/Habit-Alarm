@@ -2,6 +2,7 @@
 //  https://dev.to/christiankaindl/a-webextension-guide-36ag
 
 var global_time_left = 0;
+var global_blacklist = [];
 
 /**
  * CSS to hide everything on the page,
@@ -15,6 +16,7 @@ const CSS_hidePage = `body > :not(.beastify-image) {
 
 // Load from local storage.
 loadRemainingTime();
+loadWebsiteLists();
 // Start a timer that executes every second. This will take away a second...every second.
 // TODO: Make sure that the timer doesn't start if the time is 0.
 // That is, make sure that after the user adds <x> amount of time, it doesn't go from
@@ -49,6 +51,21 @@ function loadRemainingTime() {
 	var getting_time = browser.storage.local.get("time_left");
 
 	getting_time.then(onTimeRetrieval, onError);
+}
+
+function onWebsiteListRetrieval(lists_retrieved) {
+	global_blacklist = lists_retrieved.blacklist;
+
+	// If there is no website blacklist yet, set it equal to a certain website. (TODO: Debug, get rid of this once loading/storing website names works)
+	if(global_blacklist == null || global_blacklist.length === 0) {
+		global_blacklist = ["musicforprogramming.net/?twentyone"];
+	}
+}
+
+function loadWebsiteLists() {
+	var blacklist = browser.storage.local.get("blacklist");
+
+	blacklist.then(onWebsiteListRetrieval, onError);
 }
 
 function tickFunction() {
@@ -118,4 +135,20 @@ function saveFunction() {
 	}, onError);
 
 	setTimeout(saveFunction, 30000);
+}
+
+/*
+ * Save the website lists.
+ */
+function saveWebsiteLists() {
+	var website_object = {
+		blacklist: global_blacklist
+	}
+
+	// TODO: Figure out how exactly to store multiple values into a single object that can be retrieved later. This is driving me nuts.
+	var storing_lists = browser.storage.local.set(website_object);
+
+	storing_lists.then(() => {
+		// Nothing here, just doing a then for the errors.
+	}, onError);
 }

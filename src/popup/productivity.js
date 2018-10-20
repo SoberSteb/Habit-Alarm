@@ -1,14 +1,30 @@
 // Initialize global variables.
 var timeContainer = document.querySelector('.time-container')
 var addBtn = document.querySelector('.add');
+var blckBtn = document.querySelector('.blacklist');
 
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
+blckBtn.addEventListener('click', blacklistWebsite);
 
 updateDisplay(); // Just to overwrite anything that the button says.
 
 // Start the main loop. The main loop function is at the bottom of the script.
 setTimeout(mainLoop, 1/30);
+
+/*
+ * Run the popup at 30 fps.
+ */
+function mainLoop() {
+	// Update the display to accurately reflect the seconds remaining.
+	updateDisplay();
+
+	// TODO: Remove once blacklisting is implemented.
+	//console.log(browser.extension.getBackgroundPage().global_blacklist);
+
+	// Repeat the loop.
+	setTimeout(mainLoop, 1/30);
+}
 
 /*
  * Get Time From Background (GTFB).
@@ -84,14 +100,11 @@ function padString(string, size) {
 	return s;
 }
 
+function blacklistWebsite() {
+	console.log("Blacklisting website function is executing.");
+	// Get the background script and add reddit's url to its global_blacklist array.
+	background_blacklist = browser.extension.getBackgroundPage().global_blacklist;
+	background_blacklist.push("http://www.reddit.com");
 
-/*
- * Run the popup at 30 fps.
- */
-function mainLoop() {
-	// Update the display to accurately reflect the seconds remaining.
-	updateDisplay();
-
-	// Repeat the loop.
-	setTimeout(mainLoop, 1/30);
+	browser.extension.getBackgroundPage().saveWebsiteLists();
 }
