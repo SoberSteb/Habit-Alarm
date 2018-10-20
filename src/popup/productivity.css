@@ -1,5 +1,5 @@
 html, body {
-	width: 100px;
+	width: 150px;
 }
 
 .hidden {
@@ -7,6 +7,7 @@ html, body {
 }
 
 .button {
+	width: 90%;
 	margin: 3% auto;
 	padding: 4px;
 	text-align: center;
@@ -14,12 +15,20 @@ html, body {
 	cursor: pointer;
 }
 
+.add {
+	background-color: #E5F2F2;
+}
+
 .add:hover {
 	background-color: #CFF2F2;
 }
 
-.add {
-	background-color: #E5F2F2;
+.blacklist {
+	background-color: #FFAAAA;
+}
+
+.blacklist:hover {
+	background-color: #D76E6E;
 }
 
 .reset {
