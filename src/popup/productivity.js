@@ -20,7 +20,7 @@ function mainLoop() {
 	updateDisplay();
 
 	// TODO: Remove once blacklisting is implemented.
-	//console.log(browser.extension.getBackgroundPage().global_blacklist);
+	console.log(browser.extension.getBackgroundPage().global_blacklist);
 
 	// Repeat the loop.
 	setTimeout(mainLoop, 1/30);
@@ -101,7 +101,6 @@ function padString(string, size) {
 }
 
 function blacklistWebsite() {
-	console.log("Blacklisting website function is executing.");
 	// Get the background script and add reddit's url to its global_blacklist array.
 	background_blacklist = browser.extension.getBackgroundPage().global_blacklist;
 	background_blacklist.push("http://www.reddit.com");

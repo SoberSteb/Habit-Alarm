@@ -10,7 +10,7 @@ var global_blacklist = [];
  *
  * Shamelessly stolen from the "beastify" addon from Firefox.
  */
-const CSS_hidePage = `body > :not(.beastify-image) {
+const CSS_hidePage = `body > :not(.placeholder) {
                         display: none;
                      }`;
 
@@ -30,12 +30,21 @@ function onError(error) {
 }
 
 /*
+ * Load the local time.
+ */
+function loadRemainingTime() {
+	var getting_time = browser.storage.local.get("time_object");
+
+	getting_time.then(onTimeRetrieval, onError);
+}
+
+/*
  * Handle the retrieved time from the local storage.
  */
-function onTimeRetrieval(time_retrieved) {
+function onTimeRetrieval(storage) {
 	// Retreive the local storage and set global time equal to
 	// the stored value.
-	global_time_left = time_retrieved.time_left;
+	global_time_left = storage.time_object.time_left;
 
 	// If global_time_left is NaN, the file doesn't exist.
 	// In that case, simply reset global_time_left to 0.
@@ -45,16 +54,21 @@ function onTimeRetrieval(time_retrieved) {
 }
 
 /*
- * Load the local time if it exists.
+ * Load the list of websites.
  */
-function loadRemainingTime() {
-	var getting_time = browser.storage.local.get("time_left");
+function loadWebsiteLists() {
+	var blacklist = browser.storage.local.get("website_object");
 
-	getting_time.then(onTimeRetrieval, onError);
+	blacklist.then(onWebsiteListRetrieval, onError);
 }
 
-function onWebsiteListRetrieval(lists_retrieved) {
-	global_blacklist = lists_retrieved.blacklist;
+/*
+ * Handle the retrieved lists from the local storage.
+ */
+function onWebsiteListRetrieval(storage) {
+	global_blacklist = storage.website_object.blacklist;
+
+	console.log(global_blacklist);
 
 	// If there is no website blacklist yet, set it equal to a certain website. (TODO: Debug, get rid of this once loading/storing website names works)
 	if(global_blacklist == null || global_blacklist.length === 0) {
@@ -62,12 +76,11 @@ function onWebsiteListRetrieval(lists_retrieved) {
 	}
 }
 
-function loadWebsiteLists() {
-	var blacklist = browser.storage.local.get("blacklist");
-
-	blacklist.then(onWebsiteListRetrieval, onError);
-}
-
+/*
+ * =============================================================
+ * Start the main loop for updating time and acting accordingly.
+ * =============================================================
+ */
 function tickFunction() {
 	console.log("main tick global time left: " + global_time_left);
 	// Take away a second off of global_time_left.
@@ -94,11 +107,11 @@ function tickFunction() {
 }
 
 /*
- * Just log the error to the console.
+ * If an error occurs preventing the addon from loading, log the error to the console.
  */
-	function reportError(error) {
-		console.error(`Could not hide page for productivity: ${error}`);
-	}
+function reportError(error) {
+	console.error(`Could not hide page for productivity: ${error}`);
+}
 
 /*
  * Insert the page-hiding CSS into the active tab.
@@ -123,11 +136,15 @@ function saveFunction() {
 	}
 
 	// Store the time as "Time" locally.
-	// Taking a look at this after some time passed:
-	//   I have no idea why saving as an object and then looking for
-	//   some storage identified by one of the object's dictionary
-	//   values works. I'm leaving this as is.
-	var storing_time = browser.storage.local.set(time_object);
+	/*
+	 * I figured out why I couldn't quite pass the objects into the
+	 * local storage! It's simply due to some quirk of javascript
+	 * that I really don't quite know about.
+	 *
+	 * Basically, in this case, you want to surround the object within
+	 * { }. Doing this will actually pass in the object.
+	 */
+	var storing_time = browser.storage.local.set({time_object});
 
 	storing_time.then(() => {
 		// Do nothing here.
@@ -145,8 +162,8 @@ function saveWebsiteLists() {
 		blacklist: global_blacklist
 	}
 
-	// TODO: Figure out how exactly to store multiple values into a single object that can be retrieved later. This is driving me nuts.
-	var storing_lists = browser.storage.local.set(website_object);
+	// Store the website_object into local storage.
+	var storing_lists = browser.storage.local.set({website_object});
 
 	storing_lists.then(() => {
 		// Nothing here, just doing a then for the errors.
