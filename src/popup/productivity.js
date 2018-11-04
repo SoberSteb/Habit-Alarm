@@ -2,10 +2,12 @@
 var timeContainer = document.querySelector('.time-container')
 var addBtn = document.querySelector('.add');
 var blckBtn = document.querySelector('.blacklist');
+var clearBtn = document.querySelector('.clear');
 
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
 blckBtn.addEventListener('click', blacklistWebsite);
+clearBtn.addEventListener('click', clearBlacklist);
 
 updateDisplay(); // Just to overwrite anything that the button says.
 
@@ -104,6 +106,12 @@ function blacklistWebsite() {
 	// Get the background script and add reddit's url to its global_blacklist array.
 	background_blacklist = browser.extension.getBackgroundPage().global_blacklist;
 	background_blacklist.push("http://www.reddit.com");
+
+	browser.extension.getBackgroundPage().saveWebsiteLists();
+}
+
+function clearBlacklist() {
+	browser.extension.getBackgroundPage().global_blacklist = [];
 
 	browser.extension.getBackgroundPage().saveWebsiteLists();
 }

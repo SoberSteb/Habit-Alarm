@@ -31,6 +31,15 @@ html, body {
 	background-color: #D76E6E;
 }
 
+.clear {
+	background-color: #E5F2F2;
+}
+
+.clear:hover {
+	background-color: #CFF2F2;
+}
+
+
 .reset {
 	background-color: #FBFBC9;
 }

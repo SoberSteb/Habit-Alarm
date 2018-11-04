@@ -71,9 +71,9 @@ function onWebsiteListRetrieval(storage) {
 	console.log(global_blacklist);
 
 	// If there is no website blacklist yet, set it equal to a certain website. (TODO: Debug, get rid of this once loading/storing website names works)
-	if(global_blacklist == null || global_blacklist.length === 0) {
+	/*if(global_blacklist == null || global_blacklist.length === 0) {
 		global_blacklist = ["musicforprogramming.net/?twentyone"];
-	}
+	}*/
 }
 
 /*
