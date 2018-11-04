@@ -138,6 +138,10 @@ function blockTab(tabs) {
 		browser.tabs.query({active: true, currentWindow: true})
 			.then(hidePage)
 			.catch(reportError);
+	} else {
+		// If the tab was not found within the blacklist, that means that the tab should be shown
+		// even if time is 0. Show the page.
+		showPage(tabs);
 	}
 }
 

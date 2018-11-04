@@ -16,6 +16,10 @@ updateDisplay(); // Just to overwrite anything that the button says.
 // Start the main loop. The main loop function is at the bottom of the script.
 setTimeout(mainLoop, 1/30);
 
+function onError(error) {
+	console.log(error);
+}
+
 /*
  * Run the popup at 30 fps.
  */
@@ -107,7 +111,29 @@ function padString(string, size) {
 function blacklistWebsite() {
 	// Get the background script and add reddit's url to its global_blacklist array.
 	background_blacklist = browser.extension.getBackgroundPage().global_blacklist;
-	background_blacklist.push("http://www.reddit.com");
+	//background_blacklist.push("http://www.reddit.com");
+	console.log("blacklisting website!");
+	browser.tabs.query({currentWindow: true, active: true}).then(pushURLToBlacklist, onError);
+}
+
+function pushURLToBlacklist(tabs) {
+	var tab_url = tabs[0].url;
+	var trimmed_tab_url;
+
+	// Split the string every time / occurs.
+	var split_string = tab_url.split("/");
+	// Check if the first element of the array contains http: or https:.
+	// If it does, the domain is in the third element. (second in the array)
+	// If it doesn't, the domain is in the first element. (zeroth in the array)
+	if(split_string[0] === "http:" || split_string[0] === "https:") {
+		trimmed_tab_url = split_string[2];	
+	} else {
+		trimmed_tab_url = split_string[0];
+	}
+
+	console.log("pushing " + trimmed_tab_url);
+
+	browser.extension.getBackgroundPage().global_blacklist.push(trimmed_tab_url);
 
 	browser.extension.getBackgroundPage().saveWebsiteLists();
 }
