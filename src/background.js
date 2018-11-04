@@ -93,18 +93,7 @@ function tickFunction(tabs) {
 	// If there's no more time left, hide the contents of the page.
 	// Otherwise, show the contents again.
 	if(global_time_left <= 0) {
-		// TODO: Dynamically change the tab url based on what tab is open.
-		var tab_url = "http://www.reddit.com"
-
-		// First, check if the current URL matches any URLS within the global_blacklist.
-		var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
-		console.log("tab is in blacklist: " + tab_is_in_blacklist);
-		// If the tab url is in the blacklist, block the tab.
-		if(tab_is_in_blacklist) {
-			browser.tabs.query({active: true, currentWindow: true})
-				.then(hidePage)
-				.catch(reportError);
-		}
+		browser.tabs.query({currentWindow: true, active: true}).then(blockTab, onError);
 	} else {
 		browser.tabs.query({active: true, currentWindow: true})
 			.then(showPage)
@@ -134,6 +123,22 @@ function hidePage(tabs) {
  */
 function showPage(tabs) {
 	browser.tabs.removeCSS({code: CSS_hidePage});
+}
+
+function blockTab(tabs) {
+	// TODO: Dynamically change the tab url based on what tab is open.
+	//var tab_url = "http://www.reddit.com"
+	var tab_url = tabs[0].url;
+
+	// First, check if the current URL matches any URLS within the global_blacklist.
+	var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
+	console.log("tab is in blacklist: " + tab_is_in_blacklist);
+	// If the tab url is in the blacklist, block the tab.
+	if(tab_is_in_blacklist) {
+		browser.tabs.query({active: true, currentWindow: true})
+			.then(hidePage)
+			.catch(reportError);
+	}
 }
 
 /*
