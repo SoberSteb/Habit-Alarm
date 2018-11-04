@@ -4,6 +4,7 @@ var addBtn = document.querySelector('.add');
 var blckBtn = document.querySelector('.blacklist');
 var clearBtn = document.querySelector('.clear');
 var clearTimeBtn = document.querySelector('.clearTime');
+var global_bg_script = browser.extension.getBackgroundPage(); // Get the background script.
 
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
@@ -43,7 +44,7 @@ function mainLoop() {
  * I needed to accomplish this first.
  */
 function GTFB() {
-	return browser.extension.getBackgroundPage().global_time_left;
+	return global_bg_script.global_time_left;
 }
 
 /*
@@ -56,7 +57,7 @@ function SGT(time) {
 		time = 0;
 	}
 
-	browser.extension.getBackgroundPage().global_time_left = time;
+	global_bg_script.global_time_left = time;
 }
 
 function updateDisplay() {
@@ -109,9 +110,6 @@ function padString(string, size) {
 }
 
 function blacklistWebsite() {
-	// Get the background script and add reddit's url to its global_blacklist array.
-	background_blacklist = browser.extension.getBackgroundPage().global_blacklist;
-	//background_blacklist.push("http://www.reddit.com");
 	console.log("blacklisting website!");
 	browser.tabs.query({currentWindow: true, active: true}).then(pushURLToBlacklist, onError);
 }
@@ -133,17 +131,17 @@ function pushURLToBlacklist(tabs) {
 
 	console.log("pushing " + trimmed_tab_url);
 
-	browser.extension.getBackgroundPage().global_blacklist.push(trimmed_tab_url);
+	global_bg_script.global_blacklist.push(trimmed_tab_url);
 
-	browser.extension.getBackgroundPage().saveWebsiteLists();
+	global_bg_script.saveWebsiteLists();
 }
 
 function clearBlacklist() {
-	browser.extension.getBackgroundPage().global_blacklist = [];
+	global_bg_script.global_blacklist = [];
 
-	browser.extension.getBackgroundPage().saveWebsiteLists();
+	global_bg_script.saveWebsiteLists();
 }
 
 function clearTime() {
-	browser.extension.getBackgroundPage().global_time_left = 0;
+	global_bg_script.global_time_left = 0;
 }

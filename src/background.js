@@ -69,11 +69,6 @@ function onWebsiteListRetrieval(storage) {
 	global_blacklist = storage.website_object.blacklist;
 
 	console.log(global_blacklist);
-
-	// If there is no website blacklist yet, set it equal to a certain website. (TODO: Debug, get rid of this once loading/storing website names works)
-	/*if(global_blacklist == null || global_blacklist.length === 0) {
-		global_blacklist = ["musicforprogramming.net/?twentyone"];
-	}*/
 }
 
 /*
@@ -126,7 +121,6 @@ function showPage(tabs) {
 }
 
 function blockTab(tabs) {
-	// TODO: Dynamically change the tab url based on what tab is open.
 	//var tab_url = "http://www.reddit.com"
 	var tab_url = tabs[0].url;
 
@@ -151,9 +145,7 @@ function blockTab(tabs) {
 function checkBlacklistMatch(tab_url) {
 	var trimmed_tab_url;
 
-	// First, get the domain out of the current tab_url.
-	// For example, if I went to a subreddit in Reddit, the current url wouldn't match
-	// Reddit's domain.
+	// Get the domain out of the current tab_url.
 	
 	// Split the string every time / occurs.
 	var split_string = tab_url.split("/");
