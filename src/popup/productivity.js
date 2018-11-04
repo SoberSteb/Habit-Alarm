@@ -3,11 +3,13 @@ var timeContainer = document.querySelector('.time-container')
 var addBtn = document.querySelector('.add');
 var blckBtn = document.querySelector('.blacklist');
 var clearBtn = document.querySelector('.clear');
+var clearTimeBtn = document.querySelector('.clearTime');
 
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
 blckBtn.addEventListener('click', blacklistWebsite);
 clearBtn.addEventListener('click', clearBlacklist);
+clearTimeBtn.addEventListener('click', clearTime);
 
 updateDisplay(); // Just to overwrite anything that the button says.
 
@@ -114,4 +116,8 @@ function clearBlacklist() {
 	browser.extension.getBackgroundPage().global_blacklist = [];
 
 	browser.extension.getBackgroundPage().saveWebsiteLists();
+}
+
+function clearTime() {
+	browser.extension.getBackgroundPage().global_time_left = 0;
 }

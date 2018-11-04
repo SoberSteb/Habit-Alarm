@@ -81,7 +81,7 @@ function onWebsiteListRetrieval(storage) {
  * Start the main loop for updating time and acting accordingly.
  * =============================================================
  */
-function tickFunction() {
+function tickFunction(tabs) {
 	console.log("main tick global time left: " + global_time_left);
 	// Take away a second off of global_time_left.
 	global_time_left--;
@@ -93,9 +93,18 @@ function tickFunction() {
 	// If there's no more time left, hide the contents of the page.
 	// Otherwise, show the contents again.
 	if(global_time_left <= 0) {
-		browser.tabs.query({active: true, currentWindow: true})
-			.then(hidePage)
-			.catch(reportError);
+		// TODO: Dynamically change the tab url based on what tab is open.
+		var tab_url = "http://www.reddit.com"
+
+		// First, check if the current URL matches any URLS within the global_blacklist.
+		var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
+		console.log("tab is in blacklist: " + tab_is_in_blacklist);
+		// If the tab url is in the blacklist, block the tab.
+		if(tab_is_in_blacklist) {
+			browser.tabs.query({active: true, currentWindow: true})
+				.then(hidePage)
+				.catch(reportError);
+		}
 	} else {
 		browser.tabs.query({active: true, currentWindow: true})
 			.then(showPage)
@@ -125,6 +134,41 @@ function hidePage(tabs) {
  */
 function showPage(tabs) {
 	browser.tabs.removeCSS({code: CSS_hidePage});
+}
+
+/*
+ * Check if a given URL is in the blacklist.
+ */
+function checkBlacklistMatch(tab_url) {
+	var trimmed_tab_url;
+
+	// First, get the domain out of the current tab_url.
+	// For example, if I went to a subreddit in Reddit, the current url wouldn't match
+	// Reddit's domain.
+	
+	// Split the string every time / occurs.
+	var split_string = tab_url.split("/");
+	// Check if the first element of the array contains http: or https:.
+	// If it does, the domain is in the third element. (second in the array)
+	// If it doesn't, the domain is in the first element. (zeroth in the array)
+	if(split_string[0] === "http:" || split_string[0] === "https:") {
+		trimmed_tab_url = split_string[2];	
+	} else {
+		trimmed_tab_url = split_string[0];
+	}
+
+	var is_matching = false;
+	
+	// Check if trimmed_tab_url is within any url in global_blacklist.
+	for(var i=0; i<global_blacklist.length; i++) {
+		if(global_blacklist[i].includes(trimmed_tab_url)) {
+			console.log("global_blacklist current url " + global_blacklist[i] + ", trimmed tab " + trimmed_tab_url);
+			is_matching = true;
+		}
+	}
+
+	// Return that the website is found in the global_blacklist array.
+	return is_matching;
 }
 
 /*

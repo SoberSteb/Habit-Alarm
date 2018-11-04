@@ -2,7 +2,7 @@
 
 	"manifest_version": 2,
 	"name": "Incremental Productivity",
-	"version": "0.2.5",
+	"version": "0.2.6",
 
 	"description": "Gamify your life! Do productive tasks in exchange for more browsing time.",
 
@@ -21,6 +21,7 @@
 	"permissions": [
 		"<all_urls>",
 		"activeTab",
+		"tabs",
 		"storage"
 	],
 

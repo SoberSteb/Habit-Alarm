@@ -23,6 +23,14 @@ html, body {
 	background-color: #CFF2F2;
 }
 
+.clearTime {
+	background-color: #E5F2F2;
+}
+
+.clearTime:hover {
+	background-color: #CFF2F2;
+}
+
 .blacklist {
 	background-color: #FFAAAA;
 }
