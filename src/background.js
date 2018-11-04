@@ -78,12 +78,9 @@ function onWebsiteListRetrieval(storage) {
  */
 function tickFunction(tabs) {
 	console.log("main tick global time left: " + global_time_left);
-	// Take away a second off of global_time_left.
-	global_time_left--;
-	// Make sure it doesn't go to the negatives.
-	if(global_time_left < 0) {
-		global_time_left = 0;
-	}
+
+	// Decrement time.
+	browser.tabs.query({currentWindow: true, active: true}).then(decrementTime, onError);
 
 	// If there's no more time left, hide the contents of the page.
 	// Otherwise, show the contents again.
@@ -106,6 +103,21 @@ function reportError(error) {
 	console.error(`Could not hide page for productivity: ${error}`);
 }
 
+function decrementTime(tabs) {
+	var tab_url = tabs[0].url;
+	var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
+
+	// Take away a second off of global_time_left if the website is in the blacklist.
+	if(tab_is_in_blacklist) {
+		global_time_left--;
+	}
+	// Make sure it doesn't go to the negatives.
+	if(global_time_left < 0) {
+		global_time_left = 0;
+	}
+
+}
+
 /*
  * Insert the page-hiding CSS into the active tab.
  */
@@ -120,6 +132,9 @@ function showPage(tabs) {
 	browser.tabs.removeCSS({code: CSS_hidePage});
 }
 
+/*
+ * Block the current tab if the domain is listed in the blacklist.
+ */
 function blockTab(tabs) {
 	//var tab_url = "http://www.reddit.com"
 	var tab_url = tabs[0].url;
