@@ -28,9 +28,6 @@ function mainLoop() {
 	// Update the display to accurately reflect the seconds remaining.
 	updateDisplay();
 
-	// TODO: Remove once blacklisting is implemented.
-	console.log(browser.extension.getBackgroundPage().global_blacklist);
-
 	// Repeat the loop.
 	setTimeout(mainLoop, 1/30);
 }
@@ -110,7 +107,6 @@ function padString(string, size) {
 }
 
 function blacklistWebsite() {
-	console.log("blacklisting website!");
 	browser.tabs.query({currentWindow: true, active: true}).then(pushURLToBlacklist, onError);
 }
 
@@ -128,8 +124,6 @@ function pushURLToBlacklist(tabs) {
 	} else {
 		trimmed_tab_url = split_string[0];
 	}
-
-	console.log("pushing " + trimmed_tab_url);
 
 	global_bg_script.global_blacklist.push(trimmed_tab_url);
 

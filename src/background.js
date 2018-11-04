@@ -77,8 +77,6 @@ function onWebsiteListRetrieval(storage) {
  * =============================================================
  */
 function tickFunction(tabs) {
-	console.log("main tick global time left: " + global_time_left);
-
 	// Decrement time.
 	browser.tabs.query({currentWindow: true, active: true}).then(decrementTime, onError);
 
@@ -136,12 +134,12 @@ function showPage(tabs) {
  * Block the current tab if the domain is listed in the blacklist.
  */
 function blockTab(tabs) {
-	//var tab_url = "http://www.reddit.com"
+	// Grab the current url.
 	var tab_url = tabs[0].url;
 
-	// First, check if the current URL matches any URLS within the global_blacklist.
+	// Check if the current URL matches any URLS within the global_blacklist.
 	var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
-	console.log("tab is in blacklist: " + tab_is_in_blacklist);
+	
 	// If the tab url is in the blacklist, block the tab.
 	if(tab_is_in_blacklist) {
 		browser.tabs.query({active: true, currentWindow: true})
@@ -178,7 +176,6 @@ function checkBlacklistMatch(tab_url) {
 	// Check if trimmed_tab_url is within any url in global_blacklist.
 	for(var i=0; i<global_blacklist.length; i++) {
 		if(global_blacklist[i].includes(trimmed_tab_url)) {
-			console.log("global_blacklist current url " + global_blacklist[i] + ", trimmed tab " + trimmed_tab_url);
 			is_matching = true;
 		}
 	}
