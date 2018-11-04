@@ -137,7 +137,13 @@ function pushURLToBlacklist(tabs) {
 }
 
 function clearBlacklist() {
-	global_bg_script.global_blacklist = [];
+	//global_bg_script.global_blacklist = [];
+	//
+	// Leaving the above line up there to remind myself in the future what NOT TO DO.
+	// When an array is 0'd out by defining it as [], the original array is DESTROYED.
+	// After the array got destroyed and the tabs were switched, global_blacklist would become
+	// a dead object. No good. The below line does the job perfectly.
+	global_bg_script.global_blacklist.length = 0;
 
 	global_bg_script.saveWebsiteLists();
 }
