@@ -108,14 +108,18 @@ function decrementTime(tabs) {
 	// Take away a second off of global_time_left if the website is in the blacklist.
 	if(tab_is_in_blacklist) {
 		global_time_left--;
-	}
-	// Make sure it doesn't go to the negatives.
-	if(global_time_left < 0) {
-		global_time_left = 0;
-	}
+	
+		// Make sure it doesn't go to the negatives.
+		if(global_time_left < 0) {
+			global_time_left = 0;
+		}
 
-	// After decrementing, update the badge text to reflect the new time.
-	updateBadgeText();
+		// Update the badge text.
+		updateBadgeText();
+	} else {
+		// Since the website isn't in the blacklist, hide the badge text.
+		browser.browserAction.setBadgeText({text: ""});
+	}
 }
 
 /*
