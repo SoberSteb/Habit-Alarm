@@ -125,8 +125,15 @@ function pushURLToBlacklist(tabs) {
 		trimmed_tab_url = split_string[0];
 	}
 
+	// Now that the domain name is isolated, make sure that it's not in the blacklist before the url is added to the blacklist.
+	if(global_bg_script.checkBlacklistMatch(trimmed_tab_url)) {
+		return;
+	}
+
+	// Add the url to the blacklist.
 	global_bg_script.global_blacklist.push(trimmed_tab_url);
 
+	// Make sure to save the blacklist.
 	global_bg_script.saveWebsiteLists();
 }
 
