@@ -89,7 +89,7 @@ function formatTime() {
 	//  For example, if there were only 30 minutes, then it would display: "0.5 H 30 M 0 S".
 	var hours = Math.floor(time / 3600);
 	var minutes = Math.floor((time % 3600) / 60);
-	var seconds = Math.floor((time % 3600) % 60);
+	var seconds = (time % 3600) % 60;
 
 	// Return a string including these numbers.
 	return (hours + ":" + padString(minutes, 2) + ":" + padString(seconds, 2));

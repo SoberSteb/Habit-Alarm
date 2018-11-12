@@ -82,7 +82,7 @@ function tickFunction(tabs) {
 
 	// If there's no more time left, hide the contents of the page.
 	// Otherwise, show the contents again.
-	if(global_time_left <= 0) {
+	if(global_time_left <= 1) {
 		browser.tabs.query({currentWindow: true, active: true}).then(blockTab, onError);
 	} else {
 		browser.tabs.query({active: true, currentWindow: true})
@@ -114,6 +114,8 @@ function decrementTime(tabs) {
 		global_time_left = 0;
 	}
 
+	// After decrementing, update the badge text to reflect the new time.
+	updateBadgeText();
 }
 
 /*
@@ -225,4 +227,33 @@ function saveWebsiteLists() {
 	storing_lists.then(() => {
 		// Nothing here, just doing a then for the errors.
 	}, onError);
+}
+
+function updateBadgeText() {
+	// Format the time into 4 characters or less for the badge.
+	var badge_text = getTimeBadgeFormat();
+	// Update the total amount of time on the badge (the little icon).
+	browser.browserAction.setBadgeText({text: badge_text});
+}
+
+function getTimeBadgeFormat() {
+	// If the number of hours is above 99, indicate that it is so.
+	if(global_time_left / 3600 >= 100) {
+		return ">99h";
+	} else
+	// See if the time is one hour or greater. If it is, display the hours.
+	if(global_time_left / 3600 >= 1) {
+		return Math.floor(global_time_left / 3600) + "h";
+	} else
+	// If the time is more than a minute, display the minutes.
+	if(global_time_left / 60 >= 1) {
+		return Math.floor(global_time_left / 60) + "m";
+	} else
+	// If the time is more than a second, display the seconds.
+	if(global_time_left >= 1) {
+		return global_time_left + "s";
+	// Don't display anything if there is no time left.
+	} else {
+		return "";
+	}
 }
