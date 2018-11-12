@@ -7,22 +7,30 @@
 </head>
 
 <body>
-	<!-- Stealing this layout off of the Quicknote add-on. -->
-	<div class="outer-wrapper">
-		<!-- Changes go here. -->
-		<div class="time-container">
-			<p class="timer">Time left: 0 minutes.</p>
+	<div class="flex-container">
+		<div class="sidePanel">
+			<div class="sidePanel-button"></div>
+			<hr>
+			<div class="sidePanel-button"></div>
 		</div>
-
-		<div class="button add">Add 15 minutes</div>
-
-		<div class="button clearTime">Clear time</div>
-
-		<div class="button blacklist">Blacklist this website</div>
-
-		<div class="button clear">Clear Blacklist</div>
+	
+		<!-- Stealing this layout off of the Quicknote add-on. -->
+		<div>
+			<!-- Changes go here. -->
+			<div class="time-container">
+				<p class="timer">Time left: 0 minutes.</p>
+			</div>
+	
+			<div class="button add">Add 15 minutes</div>
+	
+			<div class="button clearTime">Clear time</div>
+	
+			<div class="button blacklist">Blacklist this website</div>
+	
+			<div class="button clear">Clear Blacklist</div>
+		</div>
 	</div>
-
+	
 	<!-- Used incase there's a problem initializing the popup. -->
 	<div id="error-content" class="hidden">
 		<p>Productivity's encountered an error!</p><p>Try a different page.</p>
