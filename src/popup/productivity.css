@@ -53,11 +53,11 @@ hr {
 	background-color: #CFF2F2;
 }
 
-.clearTime {
+.clearTime, .unblacklist {
 	background-color: #E5F2F2;
 }
 
-.clearTime:hover {
+.clearTime:hover, .unblacklist:hover {
 	background-color: #CFF2F2;
 }
 

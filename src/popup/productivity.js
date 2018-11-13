@@ -2,6 +2,7 @@
 var timeContainer = document.querySelector('.time-container')
 var addBtn = document.querySelector('.add');
 var blckBtn = document.querySelector('.blacklist');
+var ublckBtn = document.querySelector('.unblacklist');
 var clearBtn = document.querySelector('.clear');
 var clearTimeBtn = document.querySelector('.clearTime');
 var global_bg_script = browser.extension.getBackgroundPage(); // Get the background script.
@@ -9,6 +10,7 @@ var global_bg_script = browser.extension.getBackgroundPage(); // Get the backgro
 // Add event listeners to buttons.
 addBtn.addEventListener('click', addTime);
 blckBtn.addEventListener('click', blacklistWebsite);
+ublckBtn.addEventListener('click', unblacklistWebsite);
 clearBtn.addEventListener('click', clearBlacklist);
 clearTimeBtn.addEventListener('click', clearTime);
 
@@ -106,14 +108,7 @@ function padString(string, size) {
 	return s;
 }
 
-function blacklistWebsite() {
-	browser.tabs.query({currentWindow: true, active: true}).then(pushURLToBlacklist, onError);
-}
-
-function pushURLToBlacklist(tabs) {
-	var tab_url = tabs[0].url;
-	var trimmed_tab_url;
-
+function trimURL(tab_url) {
 	// Split the string every time / occurs.
 	var split_string = tab_url.split("/");
 	// Check if the first element of the array contains http: or https:.
@@ -125,6 +120,19 @@ function pushURLToBlacklist(tabs) {
 		trimmed_tab_url = split_string[0];
 	}
 
+	return trimmed_tab_url;
+}
+
+function blacklistWebsite() {
+	browser.tabs.query({currentWindow: true, active: true}).then(pushURLToBlacklist, onError);
+}
+
+function pushURLToBlacklist(tabs) {
+	var tab_url = tabs[0].url;
+	var trimmed_tab_url;
+
+	trimmed_tab_url = trimURL(tab_url);
+	
 	// Now that the domain name is isolated, make sure that it's not in the blacklist before the url is added to the blacklist.
 	if(global_bg_script.checkBlacklistMatch(trimmed_tab_url)) {
 		return;
@@ -134,6 +142,29 @@ function pushURLToBlacklist(tabs) {
 	global_bg_script.global_blacklist.push(trimmed_tab_url);
 
 	// Make sure to save the blacklist.
+	global_bg_script.saveWebsiteLists();
+}
+
+function unblacklistWebsite() {
+	browser.tabs.query({currentWindow: true, active: true}).then(popURLFromBlacklist, onError);
+}
+
+function popURLFromBlacklist(tabs) {
+	var tab_url = tabs[0].url;
+	var trimmed_tab_url;
+
+	trimmed_tab_url = trimURL(tab_url);
+	
+	// Now that the domain name is isolated, make sure that it's in the blacklist so that it can be popped.
+	if(!global_bg_script.checkBlacklistMatch(trimmed_tab_url)) {
+		return;
+	}
+
+	// Splice the url from the blacklist.
+	global_bg_script.global_blacklist.splice(global_bg_script.global_blacklist.indexOf(trimmed_tab_url), 1);
+
+	// Save the blacklist.
+	
 	global_bg_script.saveWebsiteLists();
 }
 
