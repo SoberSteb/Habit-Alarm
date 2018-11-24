@@ -24,6 +24,7 @@ hr {
 	flex-direction: column;
 	flex: 0 0 64px;
 	margin-right: 10px;
+	cursor: pointer;
 }
 
 .sidePanel-button {
@@ -33,6 +34,10 @@ hr {
 }
 
 .hidden {
+	display: none;
+}
+
+#page_two {
 	display: none;
 }
 

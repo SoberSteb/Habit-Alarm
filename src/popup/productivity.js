@@ -1,5 +1,7 @@
 // Initialize global variables.
-var timeContainer = document.querySelector('.time-container')
+var pOneBtn = document.getElementById("spb_one");
+var pTwoBtn = document.getElementById("spb_two");
+var timeContainer = document.querySelector('.time-container');
 var addBtn = document.querySelector('.add');
 var blckBtn = document.querySelector('.blacklist');
 var ublckBtn = document.querySelector('.unblacklist');
@@ -8,6 +10,14 @@ var clearTimeBtn = document.querySelector('.clearTime');
 var global_bg_script = browser.extension.getBackgroundPage(); // Get the background script.
 
 // Add event listeners to buttons.
+// https://stackoverflow.com/a/256763 showed me how to pass variables in functions
+// called by addEventListener.
+pOneBtn.addEventListener('click', function() {
+	switchPage(1);
+});
+pTwoBtn.addEventListener('click', function() {
+	switchPage(2);
+});
 addBtn.addEventListener('click', addTime);
 blckBtn.addEventListener('click', blacklistWebsite);
 ublckBtn.addEventListener('click', unblacklistWebsite);
@@ -21,6 +31,24 @@ setTimeout(mainLoop, 1/30);
 
 function onError(error) {
 	console.log(error);
+}
+
+/*
+ * Switch to a specified page.
+ */
+function switchPage(page_number) {
+	if(page_number === 1) {
+		// Keeping the below line for reference.
+		// document.getElementById("page_one").display = "inline";
+		//
+		// This is the wrong way to go about it!
+		// The end is .style.display, NOT just .display.
+		document.getElementById("page_one").style.display = "inline";
+		document.getElementById("page_two").style.display = "none";
+	} else if(page_number === 2) {
+		document.getElementById("page_one").style.display = "none";
+		document.getElementById("page_two").style.display = "inline";
+	}
 }
 
 /*
