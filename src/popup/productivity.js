@@ -89,7 +89,9 @@ function SGT(time) {
 
 function updateDisplay() {
 	// Update the total amount of time.
-	document.querySelector('.timer').innerHTML = "Time left: " + formatTime() + ".";
+	var timers = document.querySelectorAll('.timer');
+	timers[0].innerHTML = "Time left: " + formatTime() + ".";
+	timers[1].innerHTML = "Time left: " + formatTime() + ".";
 }
 
 function addTime() {

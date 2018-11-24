@@ -1,5 +1,6 @@
 html, body {
 	width: 250px;
+	height: 325px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -43,7 +44,8 @@ hr {
 
 .button {
 	width: 90%;
-	margin: 3% auto;
+	/*margin: 3% auto;*/
+	margin-bottom: 3%;
 	padding: 4px;
 	text-align: center;
 	font-size: 1.5em;
