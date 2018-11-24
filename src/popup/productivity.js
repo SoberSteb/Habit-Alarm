@@ -2,7 +2,8 @@
 var pOneBtn = document.getElementById("spb_one");
 var pTwoBtn = document.getElementById("spb_two");
 var timeContainer = document.querySelector('.time-container');
-var addBtn = document.querySelector('.add');
+// Get all the buttons that add time.
+var addBtns = document.querySelectorAll('.add');
 var blckBtn = document.querySelector('.blacklist');
 var ublckBtn = document.querySelector('.unblacklist');
 var clearBtn = document.querySelector('.clear');
@@ -18,7 +19,22 @@ pOneBtn.addEventListener('click', function() {
 pTwoBtn.addEventListener('click', function() {
 	switchPage(2);
 });
-addBtn.addEventListener('click', addTime);
+//addBtn.addEventListener('click', addTime);
+
+// Attach an event listener to all the add buttons.
+// Easy button.
+addBtns[0].addEventListener('click', function() {
+	addTime(5);
+});
+// Medium button.
+addBtns[1].addEventListener('click', function() {
+	addTime(15);
+});
+// Hard button.
+addBtns[2].addEventListener('click', function() {
+	addTime(30);
+});
+
 blckBtn.addEventListener('click', blacklistWebsite);
 ublckBtn.addEventListener('click', unblacklistWebsite);
 clearBtn.addEventListener('click', clearBlacklist);
@@ -94,11 +110,11 @@ function updateDisplay() {
 	timers[1].innerHTML = "Time left: " + formatTime() + ".";
 }
 
-function addTime() {
+function addTime(mins_to_add) {
 	// Get the time from the background script and assign it a variable.
 	var time_left = GTFB();
 	// Add the time to the total amount of time left.
-	time_left += 15 * 60; // * 60 because we want 15 minutes in seconds.
+	time_left += mins_to_add * 60; // * 60 because we want 15 minutes in seconds.
 	// Set the time to the global time.
 	SGT(time_left);
 
