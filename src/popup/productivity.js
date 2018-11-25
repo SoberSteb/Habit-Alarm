@@ -127,7 +127,7 @@ function SGT(time) {
 
 function updateDisplay() {
 	// Update the total amount of time.
-	timer.innerHTML = "Time left: " + formatTime() + ".";
+	timer.innerHTML = formatTime();
 }
 
 function addTime(mins_to_add) {
