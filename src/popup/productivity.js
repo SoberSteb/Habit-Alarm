@@ -59,11 +59,14 @@ function switchPage(page_number) {
 		//
 		// This is the wrong way to go about it!
 		// The end is .style.display, NOT just .display.
-		document.getElementById("page_one").style.display = "inline";
+
+		// Also! See how the display is set to flex? This makes it so that the
+		// divs keep their css. Using block or inline destroys the css.
+		document.getElementById("page_one").style.display = "flex";
 		document.getElementById("page_two").style.display = "none";
 	} else if(page_number === 2) {
 		document.getElementById("page_one").style.display = "none";
-		document.getElementById("page_two").style.display = "inline";
+		document.getElementById("page_two").style.display = "flex";
 	}
 }
 

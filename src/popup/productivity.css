@@ -1,6 +1,6 @@
 html, body {
 	width: 250px;
-	height: 325px;
+	height: 275px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -25,13 +25,21 @@ hr {
 	flex-direction: column;
 	flex: 0 0 64px;
 	margin-right: 10px;
-	cursor: pointer;
 }
 
 .sidePanel-button {
 	flex: 1;
 	flex-grow: 1;
 	background-color: #B4D8EB;
+	cursor: pointer;
+}
+
+.menu {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	flex: 0 1 auto;
+	height: 100%;
 }
 
 .hidden {
@@ -42,11 +50,19 @@ hr {
 	display: none;
 }
 
-.button {
+/*.button {
 	width: 90%;
-	/*margin: 3% auto;*/
 	margin-bottom: 3%;
 	padding: 4px;
+	text-align: center;
+	font-size: 1.5em;
+	cursor: pointer;
+}*/
+.button{
+	/*flex: 0 1 auto;*/
+	/*flex-grow: 1;*/
+	width: 90%;
+	margin-bottom: 3%;
 	text-align: center;
 	font-size: 1.5em;
 	cursor: pointer;
