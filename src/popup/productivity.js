@@ -69,7 +69,7 @@ function switchPage(page_number) {
 
 		// Depress the first button.
 		pOneBtn.style.marginTop = "5px";
-		pOneBtn.style.marginBottom = "11px";
+		pOneBtn.style.marginBottom = "6px";
 		pOneBtn.style.boxShadow = "0 2px #5893B2";
 		// Reset the second button.
 		pTwoBtn.style.marginBottom = "7px";
