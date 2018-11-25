@@ -1,9 +1,18 @@
 html, body {
 	width: 250px;
-	height: 275px;
+	height: 300px;
 	margin: 0;
 	padding: 0;
 	border: 0;
+}
+
+/* Have the body display the time first then the
+ * flex container. */
+body {
+	display: flex;
+	flex-direction: column;
+	flex: 0 1 auto;
+	background-color: #82B5D1;
 }
 
 hr {
@@ -11,13 +20,18 @@ hr {
 	height: 2px;
 	border: 0 none;
 	margin: 0px;
+	background-color: #5893B2
 }
 
+.time-container {
+	flex-grow: 1;
+	text-align: center;
+}
 .flex-container {
 	display: flex;
+	flex-grow: 5;
 	flex-direction: row;
 	height: 100%;
-	background-color: #82B5D1;
 }
 
 .sidePanel {
@@ -39,7 +53,7 @@ hr {
 	justify-content: space-around;
 	flex-direction: column;
 	flex: 0 1 auto;
-	height: 100%;
+	margin-top: 3%;
 }
 
 .hidden {
