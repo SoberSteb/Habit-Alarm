@@ -2,6 +2,7 @@
 var pOneBtn = document.getElementById("spb_one");
 var pTwoBtn = document.getElementById("spb_two");
 var timeContainer = document.querySelector('.time-container');
+var timer = document.querySelector('.timer');
 // Get all the buttons that add time.
 var addBtns = document.querySelectorAll('.add');
 var blckBtn = document.querySelector('.blacklist');
@@ -108,9 +109,7 @@ function SGT(time) {
 
 function updateDisplay() {
 	// Update the total amount of time.
-	var timers = document.querySelectorAll('.timer');
-	timers[0].innerHTML = "Time left: " + formatTime() + ".";
-	timers[1].innerHTML = "Time left: " + formatTime() + ".";
+	timer.innerHTML = "Time left: " + formatTime() + ".";
 }
 
 function addTime(mins_to_add) {
