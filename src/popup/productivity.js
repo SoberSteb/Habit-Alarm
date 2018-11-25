@@ -42,6 +42,7 @@ clearBtn.addEventListener('click', clearBlacklist);
 clearTimeBtn.addEventListener('click', clearTime);
 
 updateDisplay(); // Just to overwrite anything that the button says.
+switchPage(1); // Make the buttons look pretty, since the initial css isn't quite good.
 
 // Start the main loop. The main loop function is at the bottom of the script.
 setTimeout(mainLoop, 1/30);
@@ -65,9 +66,26 @@ function switchPage(page_number) {
 		// divs keep their css. Using block or inline destroys the css.
 		document.getElementById("page_one").style.display = "flex";
 		document.getElementById("page_two").style.display = "none";
+
+		// Depress the first button.
+		pOneBtn.style.marginTop = "5px";
+		pOneBtn.style.marginBottom = "11px";
+		pOneBtn.style.boxShadow = "0 2px #5893B2";
+		// Reset the second button.
+		pTwoBtn.style.marginBottom = "7px";
+		pTwoBtn.style.boxShadow = "0 7px #5893B2";
 	} else if(page_number === 2) {
 		document.getElementById("page_one").style.display = "none";
 		document.getElementById("page_two").style.display = "flex";
+
+		// Depress the second button.
+		pTwoBtn.style.marginBottom = "2px";
+		pTwoBtn.style.boxShadow = "0 2px #5893B2";
+		// Reset the first button.
+		pOneBtn.style.marginTop = "0";
+		pOneBtn.style.marginBottom = "15px";
+		pOneBtn.style.boxShadow = "0 7px #5893B2";
+
 	}
 }
 

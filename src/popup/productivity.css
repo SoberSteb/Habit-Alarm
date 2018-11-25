@@ -25,7 +25,7 @@ hr {
 	height: 2px;
 	border: 0 none;
 	margin: 0px;
-	background-color: #5893B2
+	background-color: #5893B2;
 }
 
 .time-container {
@@ -47,13 +47,14 @@ hr {
 	display: flex;
 	flex-direction: column;
 	flex: 0 0 64px;
-	margin-right: 10px;
 }
 
 .sidePanel-button {
 	flex: 1;
 	flex-grow: 1;
 	background-color: #B4D8EB;
+	margin-bottom: 8px;
+	box-shadow: 0 8px #5893B2;
 	cursor: pointer;
 }
 
@@ -62,7 +63,6 @@ hr {
 	justify-content: space-around;
 	flex-direction: column;
 	flex: 0 1 auto;
-	margin-top: 3%;
 }
 
 .hidden {
@@ -73,19 +73,9 @@ hr {
 	display: none;
 }
 
-/*.button {
-	width: 90%;
-	margin-bottom: 3%;
-	padding: 4px;
-	text-align: center;
-	font-size: 1.5em;
-	cursor: pointer;
-}*/
 .button{
-	/*flex: 0 1 auto;*/
-	/*flex-grow: 1;*/
 	width: 90%;
-	margin-bottom: 3%;
+	margin: 0 auto;
 	text-align: center;
 	font-size: 1.5em;
 	cursor: pointer;
