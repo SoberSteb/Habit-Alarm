@@ -90,7 +90,7 @@ function tickFunction(tabs) {
 			.catch(reportError);
 	}
 
-	// And finally, start the timer again.
+	// Start the timer again.
 	setTimeout(tickFunction, 1000);
 }
 

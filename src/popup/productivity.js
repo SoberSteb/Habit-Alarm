@@ -1,3 +1,5 @@
+const FRAMERATE = 1/15;
+
 // Initialize global variables.
 var pOneBtn = document.getElementById("spb_one");
 var pTwoBtn = document.getElementById("spb_two");
@@ -10,6 +12,7 @@ var ublckBtn = document.querySelector('.unblacklist');
 var clearBtn = document.querySelector('.clear');
 var clearTimeBtn = document.querySelector('.clearTime');
 var global_bg_script = browser.extension.getBackgroundPage(); // Get the background script.
+var popup_time = global_bg_script.global_time_left;
 
 // Add event listeners to buttons.
 // https://stackoverflow.com/a/256763 showed me how to pass variables in functions
@@ -20,7 +23,6 @@ pOneBtn.addEventListener('click', function() {
 pTwoBtn.addEventListener('click', function() {
 	switchPage(2);
 });
-//addBtn.addEventListener('click', addTime);
 
 // Attach an event listener to all the add buttons.
 // Easy button.
@@ -44,8 +46,8 @@ clearTimeBtn.addEventListener('click', clearTime);
 updateDisplay(); // Just to overwrite anything that the button says.
 switchPage(1); // Make the buttons look pretty, since the initial css isn't quite good.
 
-// Start the main loop. The main loop function is at the bottom of the script.
-setTimeout(mainLoop, 1/30);
+// Start the main loop.
+setInterval(mainLoop, FRAMERATE);
 
 function onError(error) {
 	console.log(error);
@@ -90,14 +92,20 @@ function switchPage(page_number) {
 }
 
 /*
- * Run the popup at 30 fps.
+ * Run the popup at the constant frame rate defined at the top.
  */
 function mainLoop() {
-	// Update the display to accurately reflect the seconds remaining.
-	updateDisplay();
+	// Get the current time from the background script.
+	var new_time = GTFB();
+	// To limit the amount of rewrites done, only change the displayed time
+	// if the new time is different from the popup time.
+	if(new_time != popup_time) {
+		// Update the popup_time.
+		popup_time = new_time;
 
-	// Repeat the loop.
-	setTimeout(mainLoop, 1/30);
+		// Update the display to accurately reflect the seconds remaining.
+		updateDisplay();
+	}
 }
 
 /*
@@ -126,7 +134,7 @@ function SGT(time) {
 }
 
 function updateDisplay() {
-	// Update the total amount of time.
+	// Update the time display with the current time.
 	timer.innerHTML = formatTime();
 }
 
@@ -148,7 +156,7 @@ function addTime(mins_to_add) {
  */
 function formatTime() {
 	// Get the time from the background script and assign it a variable.
-	var time = GTFB();
+	var time = popup_time;
 
 	// Figure out how many hours, minutes, and seconds there are in the given time.
 	// Code shameleslly "inspired" from:
