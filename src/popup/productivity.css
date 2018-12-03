@@ -9,7 +9,7 @@
 
 html, body {
 	width: 250px;
-	height: 300px;
+	height: 315px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -21,7 +21,12 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex: 0 1 auto;
-	background-color: #82B5D1;
+	/*
+	 * TODO: Make it an option to use the "classic" color scheme.
+	 * background-color: #82B5D1;
+	 */
+	/*background-color: #2B2B2B; KEEP THIS */
+	background-color: #2B2B2B;
 }
 
 .body-flex {
@@ -30,27 +35,43 @@ body {
 }
 
 p {
-	margin: 5% 5% 0 5%;
+	margin: 3% 5% 2% 5%;
 	text-align: center;
 	font-size: 1em;
 }
 
-hr {
-	width: 100%;
-	height: 2px;
-	border: 0 none;
-	margin: 0px;
-	background-color: #5893B2;
-}
-
 .time-container {
+	padding-bottom: 2%;
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* To align the timer correctly. */
 	flex-grow: 1;
 }
 
+.timer-background {
+	width: 90%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background-color: #1B1B1B;
+	border-radius: 7px;
+}
+
 .timer {
-	margin: 1% 5% 5% 5%;
+	margin: auto;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	padding-top: 1%;
+	padding-bottom: 2%;
+	width: 95%;
+	border-radius: 10px;
 	font-family: "Digital";
 	font-size: 3em;
+	text-align: center;
+	background-color: #500104;
 }
 
 .flex-container {
@@ -69,9 +90,13 @@ hr {
 .sidePanel-button {
 	flex: 1;
 	flex-grow: 1;
-	background-color: #B4D8EB;
+	/*
+	 * TODO: Classic color scheme.
+	 * background-color: #B4D8EB;
+	 */
+	background-color: #606060;
 	margin-bottom: 8px;
-	box-shadow: 0 8px #5893B2;
+	box-shadow: 0 8px #505050;
 	cursor: pointer;
 }
 
@@ -98,38 +123,37 @@ hr {
 	cursor: pointer;
 }
 
-.add {
-	background-color: #E5F2F2;
+.add, .clear, .clearTime, .unblacklist {
+	/*
+	 * TODO: Classic color scheme.
+	 * background-color: #E5F2F2;
+	 */
+	background-color: #BFBEBE;
 }
 
-.add:hover {
-	background-color: #CFF2F2;
-}
-
-.clearTime, .unblacklist {
-	background-color: #E5F2F2;
-}
-
-.clearTime:hover, .unblacklist:hover {
-	background-color: #CFF2F2;
+.add:hover, .clear:hover, .clearTime:hover, .unblacklist:hover {
+	/*
+	 * TODO: Classic color scheme.
+	 * background-color: #CFF2F2;
+	 */
+	background-color: #EDECEC;
 }
 
 .blacklist {
-	background-color: #FFAAAA;
+	/*
+	 * TODO: Classic color scheme.
+	 * background-color: #FFAAAA;
+	 */
+	background-color: #B89A9A;
 }
 
 .blacklist:hover {
-	background-color: #D76E6E;
+	/*
+	 * TODO: Classic color scheme.
+	 * background-color: #D76E6E;
+	 */
+	background-color: #DEC8C8;
 }
-
-.clear {
-	background-color: #E5F2F2;
-}
-
-.clear:hover {
-	background-color: #CFF2F2;
-}
-
 
 .reset {
 	background-color: #FBFBC9;

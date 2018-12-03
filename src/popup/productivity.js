@@ -72,21 +72,21 @@ function switchPage(page_number) {
 		// Depress the first button.
 		pOneBtn.style.marginTop = "5px";
 		pOneBtn.style.marginBottom = "6px";
-		pOneBtn.style.boxShadow = "0 2px #5893B2";
+		pOneBtn.style.boxShadow = "0 2px #505050";
 		// Reset the second button.
 		pTwoBtn.style.marginBottom = "7px";
-		pTwoBtn.style.boxShadow = "0 7px #5893B2";
+		pTwoBtn.style.boxShadow = "0 7px #505050";
 	} else if(page_number === 2) {
 		document.getElementById("page_one").style.display = "none";
 		document.getElementById("page_two").style.display = "flex";
 
 		// Depress the second button.
 		pTwoBtn.style.marginBottom = "2px";
-		pTwoBtn.style.boxShadow = "0 2px #5893B2";
+		pTwoBtn.style.boxShadow = "0 2px #505050";
 		// Reset the first button.
 		pOneBtn.style.marginTop = "0";
 		pOneBtn.style.marginBottom = "15px";
-		pOneBtn.style.boxShadow = "0 7px #5893B2";
+		pOneBtn.style.boxShadow = "0 7px #505050";
 
 	}
 }
