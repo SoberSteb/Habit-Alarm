@@ -13,6 +13,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	border: 0;
+	font-family: Helvetica;
 }
 
 /* Have the body display the time first then the
@@ -110,9 +111,11 @@ p {
 }
 
 .menu {
+	width: 100%;
 	display: flex;
-	justify-content: space-around;
 	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 	flex: 0 1 auto;
 }
 
@@ -128,16 +131,26 @@ p {
 	width: 90%;
 	margin: 0 auto;
 	text-align: center;
+	vertical-align: middle;
 	font-size: 1.5em;
 	cursor: pointer;
 }
 
 .add, .clear, .clearTime, .unblacklist {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
 	/*
 	 * TODO: Classic color scheme.
 	 * background-color: #E5F2F2;
 	 */
 	background-color: #BFBEBE;
+}
+
+.add {
+	min-height: 25%;
 }
 
 .add:hover, .clear:hover, .clearTime:hover, .unblacklist:hover {
