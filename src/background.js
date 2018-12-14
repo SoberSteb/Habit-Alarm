@@ -3,6 +3,7 @@
 
 var global_time_left = 0;
 var global_blacklist = [];
+var global_prev_url = "";
 // Set up variables to specify when badge colors should trigger.
 var trigger_red_badge_time = 5 * 60;
 var trigger_yellow_badge_time = 15 * 60;
@@ -128,6 +129,14 @@ function decrementTime(tabs) {
  * Insert the page-hiding CSS into the active tab.
  */
 function hidePage(tabs) {
+	/*
+	 * Take note of the current url. This will be put in a global variable which will be accessed
+	 * by the blocked page's javascript function. After the page's javascript function retrieves
+	 * the previous url stored in the global variable, it will then set the global variable
+	 * to be "".
+	 */
+	global_prev_url = tabs[0].url; // Grab the current url.
+
 	// Redirect the user to a page telling them that their content is blocked.
 	browser.tabs.update(tabs[0].id, {
 		active: true,

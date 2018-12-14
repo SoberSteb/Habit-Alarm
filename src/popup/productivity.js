@@ -238,7 +238,6 @@ function popURLFromBlacklist(tabs) {
 	global_bg_script.global_blacklist.splice(global_bg_script.global_blacklist.indexOf(trimmed_tab_url), 1);
 
 	// Save the blacklist.
-	
 	global_bg_script.saveWebsiteLists();
 }
 
