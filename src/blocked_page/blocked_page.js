@@ -33,11 +33,7 @@ window.onload = function() {
 			global_bg_script.saveWebsiteLists();
 		}
 
-		// Get the user back to the previous page.
-		browser.tabs.update({
-			active: true,
-			url: previous_url
-		});
+		window.history.back();
 
 		return false;
 	}
