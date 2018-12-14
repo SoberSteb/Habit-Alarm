@@ -3,6 +3,9 @@
 
 var global_time_left = 0;
 var global_blacklist = [];
+// Set up variables to specify when badge colors should trigger.
+var trigger_red_badge_time = 5 * 60;
+var trigger_yellow_badge_time = 15 * 60;
 
 /**
  * CSS to hide everything on the page,
@@ -114,8 +117,7 @@ function decrementTime(tabs) {
 			global_time_left = 0;
 		}
 
-		// Update the badge text.
-		updateBadgeText();
+		updateBadge();
 	} else {
 		// Since the website isn't in the blacklist, hide the badge text.
 		browser.browserAction.setBadgeText({text: ""});
@@ -233,11 +235,22 @@ function saveWebsiteLists() {
 	}, onError);
 }
 
-function updateBadgeText() {
+/*
+ * Updates the time to be displayed in the badge and the badge background color.
+ */
+function updateBadge() {
 	// Format the time into 4 characters or less for the badge.
 	var badge_text = getTimeBadgeFormat();
-	// Update the total amount of time on the badge (the little icon).
 	browser.browserAction.setBadgeText({text: badge_text});
+
+	// Update the color of the badge depending on the amount of remaining time.
+	if(global_time_left <= trigger_red_badge_time) {
+		browser.browserAction.setBadgeBackgroundColor({color: "red"});
+	} else if(global_time_left <= trigger_yellow_badge_time) {
+		browser.browserAction.setBadgeBackgroundColor({color: "yellow"});
+	} else {
+		browser.browserAction.setBadgeBackgroundColor({color: "black"});
+	}
 }
 
 function getTimeBadgeFormat() {
