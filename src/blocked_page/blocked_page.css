@@ -5,6 +5,10 @@ html, body {
 	border: 0;
 }
 
+html {
+	background-color: #232323;
+}
+
 body {
 	display: flex;
 	flex-direction: column;
@@ -21,7 +25,13 @@ body {
 }
 
 p {
+	color: white;
 	margin: 0.5% 0.5% 0.5% 0.5%;
+}
+
+a {
+	font-weight: bold;
+	color: inherit;
 }
 
 .button{
