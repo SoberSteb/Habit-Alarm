@@ -128,7 +128,11 @@ function decrementTime(tabs) {
  * Insert the page-hiding CSS into the active tab.
  */
 function hidePage(tabs) {
-	browser.tabs.insertCSS({code: CSS_hidePage});
+	// Redirect the user to a page telling them that their content is blocked.
+	browser.tabs.update(tabs[0].id, {
+		active: true,
+		url: "/blocked_page/blocked_page.html"
+	});
 }
 
 /*
