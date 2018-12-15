@@ -3,6 +3,7 @@ const FRAMERATE = 1/15;
 // Initialize global variables.
 var pOneBtn = document.getElementById("spb_one");
 var pTwoBtn = document.getElementById("spb_two");
+var infoBtn = document.getElementById("info-button");
 var timeContainer = document.querySelector('.time-container');
 var timer = document.querySelector('.timer');
 // Get all the buttons that add time.
@@ -22,6 +23,9 @@ pOneBtn.addEventListener('click', function() {
 });
 pTwoBtn.addEventListener('click', function() {
 	switchPage(2);
+});
+infoBtn.addEventListener('click', function() {
+	switchPage(3); // Redirects user to another page.
 });
 
 // Attach an event listener to all the add buttons.
@@ -87,7 +91,11 @@ function switchPage(page_number) {
 		pOneBtn.style.marginTop = "0";
 		pOneBtn.style.marginBottom = "15px";
 		pOneBtn.style.boxShadow = "0 7px #505050";
-
+	} else if(page_number === 3) { // Docs
+		browser.tabs.create({
+			active: true,
+			url: "/docs/docs.html"
+		});
 	}
 }
 

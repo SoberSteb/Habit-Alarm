@@ -9,7 +9,7 @@
 
 html, body {
 	width: 250px;
-	height: 315px;
+	height: 350px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -43,6 +43,11 @@ p {
 
 .spb_icon {
 	width: 64px;
+	opacity: 0.4;
+}
+
+.info_icon {
+	width: 32px;
 	opacity: 0.4;
 }
 
@@ -99,7 +104,7 @@ p {
 	align-items: center;
 	justify-content: center;
 	flex: 1;
-	flex-grow: 1;
+	/*flex-grow: 1;*/
 	/*
 	 * TODO: Classic color scheme.
 	 * background-color: #B4D8EB;
