@@ -16,7 +16,16 @@ var trigger_yellow_badge_time = 10 * 60;
  */
 const CSS_hidePage = `body > :not(.placeholder) {
                         display: none;
-                     }`;
+					 }`;
+
+// Redirect user to docs page after addon is installed.
+browser.runtime.onInstalled.addListener(handleInstalled);
+
+function handleInstalled() {
+	browser.tabs.create({
+		url: "/docs/docs.html"
+	});
+}
 
 // Load from local storage.
 loadRemainingTime();
