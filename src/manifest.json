@@ -2,9 +2,9 @@
 
 	"manifest_version": 2,
 	"name": "Incremental Productivity",
-	"version": "0.5.4.1",
+	"version": "0.5.4.2",
 
-	"description": "Gamify your life! Do productive tasks in exchange for more browsing time.",
+	"description": "Do productive tasks in exchange for more browsing time!",
 
 	"icons": {
 		"48": "icons/border-48.png"

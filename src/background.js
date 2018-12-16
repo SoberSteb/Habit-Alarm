@@ -80,8 +80,6 @@ function loadWebsiteLists() {
  */
 function onWebsiteListRetrieval(storage) {
 	global_blacklist = storage.website_object.blacklist;
-
-	console.log(global_blacklist);
 }
 
 /*
@@ -90,17 +88,11 @@ function onWebsiteListRetrieval(storage) {
  * =============================================================
  */
 function tickFunction(tabs) {
-	// Decrement time.
 	browser.tabs.query({currentWindow: true, active: true}).then(decrementTime, onError);
 
-	// If there's no more time left, hide the contents of the page.
-	// Otherwise, show the contents again.
+	// If there's no more time left, block the page.
 	if(global_time_left <= 1) {
 		browser.tabs.query({currentWindow: true, active: true}).then(blockTab, onError);
-	} else {
-		browser.tabs.query({active: true, currentWindow: true})
-			.then(showPage)
-			.catch(reportError);
 	}
 
 	// Start the timer again.
@@ -154,13 +146,6 @@ function hidePage(tabs) {
 }
 
 /*
- * Remove the page-hiding CSS from the active tab.
- */
-function showPage(tabs) {
-	browser.tabs.removeCSS({code: CSS_hidePage});
-}
-
-/*
  * Block the current tab if the domain is listed in the blacklist.
  */
 function blockTab(tabs) {
@@ -175,10 +160,6 @@ function blockTab(tabs) {
 		browser.tabs.query({active: true, currentWindow: true})
 			.then(hidePage)
 			.catch(reportError);
-	} else {
-		// If the tab was not found within the blacklist, that means that the tab should be shown
-		// even if time is 0. Show the page.
-		showPage(tabs);
 	}
 }
 

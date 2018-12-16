@@ -60,7 +60,6 @@ clearTimeBtn.addEventListener('click', clearTime);
 updateDisplay(); // Just to overwrite anything that the button says.
 switchPage(1); // Make the buttons look pretty, since the initial css isn't quite good.
 
-// Start the main loop.
 setInterval(mainLoop, FRAMERATE);
 
 function onError(error) {
@@ -118,10 +117,8 @@ function mainLoop() {
 	// To limit the amount of rewrites done, only change the displayed time
 	// if the new time is different from the popup time.
 	if(new_time != popup_time) {
-		// Update the popup_time.
 		popup_time = new_time;
 
-		// Update the display to accurately reflect the seconds remaining.
 		updateDisplay();
 	}
 }
@@ -143,7 +140,7 @@ function GTFB() {
  * Sets the global time from the background script.
  */
 function SGT(time) {
-	// If the input time is negative for whatever reason, make it 0.
+	// If the resulting time is less than zero, bring it back up to zero.
 	if(time < 0) {
 		time = 0;
 	}
@@ -151,24 +148,23 @@ function SGT(time) {
 	global_bg_script.global_time_left = time;
 }
 
+/*
+ * Updates the time display with the current time.
+ */
 function updateDisplay() {
-	// Update the time display with the current time.
 	timer.innerHTML = formatTime();
 }
 
+/*
+ * Takes any amount of minutes and adds them to the time left.
+ */
 function addTime(mins_to_add) {
-	// Get the time from the background script and assign it a variable.
 	var time_left = GTFB();
-	// Add the time to the total amount of time left.
 	time_left += mins_to_add * 60; // * 60 because we want 15 minutes in seconds.
-	// If the resulting time is less than zero, bring it back up to zero.
-	if(time_left < 0) {
-		time_left = 0;
-	}
+
 	// Set the time to the global time.
 	SGT(time_left);
 
-	// Update the display.
 	updateDisplay();
 }
 
@@ -204,8 +200,10 @@ function padString(string, size) {
 	return s;
 }
 
+/*
+ * Get the domain name of the current website.
+ */
 function trimURL(tab_url) {
-	// Split the string every time / occurs.
 	var split_string = tab_url.split("/");
 	// Check if the first element of the array contains http: or https:.
 	// If it does, the domain is in the third element. (second in the array)

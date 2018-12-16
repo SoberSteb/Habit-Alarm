@@ -1,4 +1,4 @@
-/* Define the custom digital font. */
+/* Digital font */
 @font-face {
 	font-family: "Digital";
 	src: url("res/Digital-7.woff") format("woff"),
@@ -16,8 +16,6 @@ html, body {
 	font-family: Helvetica;
 }
 
-/* Have the body display the time first then the
- * flex container. */
 body {
 	display: flex;
 	flex-direction: column;
@@ -26,7 +24,6 @@ body {
 	 * TODO: Make it an option to use the "classic" color scheme.
 	 * background-color: #82B5D1;
 	 */
-	/*background-color: #2B2B2B; KEEP THIS */
 	background-color: #2B2B2B;
 }
 
@@ -55,7 +52,7 @@ p {
 	padding-bottom: 2%;
 	display: flex;
 	flex-direction: column;
-	align-items: center; /* To align the timer correctly. */
+	align-items: center;
 	flex-grow: 1;
 }
 
