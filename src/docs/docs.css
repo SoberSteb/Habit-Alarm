@@ -10,6 +10,7 @@ html {
 
 body {
 	padding: 3%;
+	padding-bottom: 5%;
 	padding-left: 6%;
 }
 
@@ -29,7 +30,7 @@ body {
 	background-color: #4C4C4C;
 }
 
-p {
+h1, h2, p {
 	color: white;
 	margin: 0.5% 0.5% 0.5% 0.5%;
 }
@@ -37,4 +38,9 @@ p {
 a {
 	font-weight: bold;
 	color: inherit;
+}
+
+.icon {
+	width: 32px;
+	vertical-align: middle;
 }
