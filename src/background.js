@@ -6,7 +6,7 @@ var global_blacklist = [];
 var global_prev_url = "";
 // Set up variables to specify when badge colors should trigger.
 var trigger_red_badge_time = 5 * 60;
-var trigger_yellow_badge_time = 15 * 60;
+var trigger_yellow_badge_time = 10 * 60;
 
 /**
  * CSS to hide everything on the page,

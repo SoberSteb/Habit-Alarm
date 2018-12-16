@@ -41,6 +41,16 @@ addBtns[1].addEventListener('click', function() {
 addBtns[2].addEventListener('click', function() {
 	addTime(30);
 });
+// Subtraction buttons.
+addBtns[3].addEventListener('click', function() {
+	addTime(-5);
+});
+addBtns[4].addEventListener('click', function() {
+	addTime(-15);
+});
+addBtns[5].addEventListener('click', function() {
+	addTime(-30);
+});
 
 blckBtn.addEventListener('click', blacklistWebsite);
 ublckBtn.addEventListener('click', unblacklistWebsite);
@@ -151,6 +161,10 @@ function addTime(mins_to_add) {
 	var time_left = GTFB();
 	// Add the time to the total amount of time left.
 	time_left += mins_to_add * 60; // * 60 because we want 15 minutes in seconds.
+	// If the resulting time is less than zero, bring it back up to zero.
+	if(time_left < 0) {
+		time_left = 0;
+	}
 	// Set the time to the global time.
 	SGT(time_left);
 
