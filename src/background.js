@@ -105,7 +105,7 @@ function decrementTime(tabs) {
 /*
  * Redirect user to a blocked page once time runs out and the current website is blocked.
  */
-function hidePage(tabs) {
+function blockPage(tabs) {
 	/*
 	 * Take note of the current url. This will be put in a global variable which will be accessed
 	 * by the blocked page's javascript function. After the page's javascript function retrieves
@@ -131,7 +131,7 @@ function blockTab(tabs) {
 	// If the tab url is in the blacklist, redirect user to blocked page.
 	if(tab_is_in_blacklist) {
 		browser.tabs.query({active: true, currentWindow: true})
-			.then(hidePage)
+			.then(blockPage)
 			.catch(reportError);
 	}
 }

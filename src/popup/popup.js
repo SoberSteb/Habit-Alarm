@@ -102,6 +102,9 @@ function switchPage(page_number) {
 			active: true,
 			url: "/docs/docs.html"
 		});
+
+		// Close the popup.
+		window.close();
 	}
 }
 

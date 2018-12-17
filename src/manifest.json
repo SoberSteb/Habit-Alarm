@@ -2,7 +2,7 @@
 
 	"manifest_version": 2,
 	"name": "Incremental Productivity",
-	"version": "0.5.4.5",
+	"version": "0.5.4.6",
 
 	"description": "Do productive tasks in exchange for more browsing time!",
 
@@ -15,7 +15,7 @@
 			"48" : "icons/border-48.png"
 		},
 		"default_title": "Incremental Productivity",
-		"default_popup": "popup/productivity.html"
+		"default_popup": "popup/popup.html"
 	},
 
 	"permissions": [
