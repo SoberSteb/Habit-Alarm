@@ -209,7 +209,9 @@ function trimURL(tab_url) {
 	// If it does, the domain is in the third element. (second in the array)
 	// If it doesn't, the domain is in the first element. (zeroth in the array)
 	if(split_string[0] === "http:" || split_string[0] === "https:") {
-		trimmed_tab_url = split_string[2];	
+		trimmed_tab_url = split_string[2];
+	} else if(split_string[0].includes(":")) {
+		trimmed_tab_url = ""; // Return nothing; prevents blocking of default mozilla pages and addons.
 	} else {
 		trimmed_tab_url = split_string[0];
 	}
