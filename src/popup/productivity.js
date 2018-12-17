@@ -29,15 +29,12 @@ infoBtn.addEventListener('click', function() {
 });
 
 // Attach an event listener to all the add buttons.
-// Easy button.
 addBtns[0].addEventListener('click', function() {
 	addTime(5);
 });
-// Medium button.
 addBtns[1].addEventListener('click', function() {
 	addTime(15);
 });
-// Hard button.
 addBtns[2].addEventListener('click', function() {
 	addTime(30);
 });
@@ -212,6 +209,8 @@ function trimURL(tab_url) {
 		trimmed_tab_url = split_string[2];
 	} else if(split_string[0].includes(":")) {
 		trimmed_tab_url = ""; // Return nothing; prevents blocking of default mozilla pages and addons.
+		// That means that "empty websites" are able to get blocked. However, the background script
+		// doesn't check for empty websites to block, so new tabs will not get blocked.
 	} else {
 		trimmed_tab_url = split_string[0];
 	}
@@ -245,6 +244,9 @@ function unblacklistWebsite() {
 	browser.tabs.query({currentWindow: true, active: true}).then(popURLFromBlacklist, onError);
 }
 
+/*
+ * Remove the current website from the blacklist.
+ */
 function popURLFromBlacklist(tabs) {
 	var tab_url = tabs[0].url;
 	var trimmed_tab_url;

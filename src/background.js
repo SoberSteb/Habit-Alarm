@@ -1,22 +1,9 @@
-// Took some handy pointers from the following link:
-//  https://dev.to/christiankaindl/a-webextension-guide-36ag
-
 var global_time_left = 0;
 var global_blacklist = [];
 var global_prev_url = "";
 // Set up variables to specify when badge colors should trigger.
 var trigger_red_badge_time = 5 * 60;
 var trigger_yellow_badge_time = 10 * 60;
-
-/**
- * CSS to hide everything on the page,
- * except for elements that have the "beastify-image" class.
- *
- * Shamelessly stolen from the "beastify" addon from Firefox.
- */
-const CSS_hidePage = `body > :not(.placeholder) {
-                        display: none;
-					 }`;
 
 // Load from local storage.
 loadRemainingTime();
@@ -44,12 +31,10 @@ function loadRemainingTime() {
  * Handle the retrieved time from the local storage.
  */
 function onTimeRetrieval(storage) {
-	// Retreive the local storage and set global time equal to
-	// the stored value.
+	// Retrieve the local storage and set global time equal to the stored value.
 	global_time_left = storage.time_object.time_left;
 
-	// If global_time_left is NaN, the file doesn't exist.
-	// In that case, simply reset global_time_left to 0.
+	// If global_time_left is NaN, the file doesn't exist. In that case, simply reset global_time_left to 0.
 	if(isNaN(parseFloat(global_time_left))) {
 		global_time_left = 0;
 	}
@@ -95,11 +80,13 @@ function reportError(error) {
 	console.error(`Could not hide page for productivity: ${error}`);
 }
 
+/*
+ * Takes a second off of the time left if the current website is in the blacklist.
+ */
 function decrementTime(tabs) {
 	var tab_url = tabs[0].url;
 	var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
 
-	// Take away a second off of global_time_left if the website is in the blacklist.
 	if(tab_is_in_blacklist) {
 		global_time_left--;
 	
@@ -116,7 +103,7 @@ function decrementTime(tabs) {
 }
 
 /*
- * Insert the page-hiding CSS into the active tab.
+ * Redirect user to a blocked page once time runs out and the current website is blocked.
  */
 function hidePage(tabs) {
 	/*
@@ -127,7 +114,6 @@ function hidePage(tabs) {
 	 */
 	global_prev_url = tabs[0].url; // Grab the current url.
 
-	// Redirect the user to a page telling them that their content is blocked.
 	browser.tabs.update(tabs[0].id, {
 		active: true,
 		url: "/blocked_page/blocked_page.html"
@@ -138,13 +124,11 @@ function hidePage(tabs) {
  * Block the current tab if the domain is listed in the blacklist.
  */
 function blockTab(tabs) {
-	// Grab the current url.
 	var tab_url = tabs[0].url;
 
-	// Check if the current URL matches any URLS within the global_blacklist.
 	var tab_is_in_blacklist = checkBlacklistMatch(tab_url);
 	
-	// If the tab url is in the blacklist, block the tab.
+	// If the tab url is in the blacklist, redirect user to blocked page.
 	if(tab_is_in_blacklist) {
 		browser.tabs.query({active: true, currentWindow: true})
 			.then(hidePage)
@@ -157,8 +141,6 @@ function blockTab(tabs) {
  */
 function checkBlacklistMatch(tab_url) {
 	var trimmed_tab_url;
-
-	// Get the domain out of the current tab_url.
 	
 	// Split the string every time / occurs.
 	var split_string = tab_url.split("/");

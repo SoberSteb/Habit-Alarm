@@ -20,10 +20,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex: 0 1 auto;
-	/*
-	 * TODO: Make it an option to use the "classic" color scheme.
-	 * background-color: #82B5D1;
-	 */
 	background-color: #2B2B2B;
 }
 
@@ -101,11 +97,6 @@ p {
 	align-items: center;
 	justify-content: center;
 	flex: 1;
-	/*flex-grow: 1;*/
-	/*
-	 * TODO: Classic color scheme.
-	 * background-color: #B4D8EB;
-	 */
 	background-color: #606060;
 	margin-bottom: 8px;
 	box-shadow: 0 8px #505050;
@@ -144,35 +135,18 @@ p {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-
-	/*
-	 * TODO: Classic color scheme.
-	 * background-color: #E5F2F2;
-	 */
 	background-color: #BFBEBE;
 }
 
 .add:hover, .clear:hover, .clearTime:hover, .unblacklist:hover {
-	/*
-	 * TODO: Classic color scheme.
-	 * background-color: #CFF2F2;
-	 */
 	background-color: #EDECEC;
 }
 
 .blacklist {
-	/*
-	 * TODO: Classic color scheme.
-	 * background-color: #FFAAAA;
-	 */
 	background-color: #B89A9A;
 }
 
 .blacklist:hover {
-	/*
-	 * TODO: Classic color scheme.
-	 * background-color: #D76E6E;
-	 */
 	background-color: #DEC8C8;
 }
 
