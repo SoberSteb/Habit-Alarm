@@ -18,22 +18,11 @@ const CSS_hidePage = `body > :not(.placeholder) {
                         display: none;
 					 }`;
 
-// Redirect user to docs page after addon is installed.
-browser.runtime.onInstalled.addListener(handleInstalled);
-
-function handleInstalled() {
-	browser.tabs.create({
-		url: "/docs/docs.html"
-	});
-}
-
 // Load from local storage.
 loadRemainingTime();
 loadWebsiteLists();
-// Start a timer that executes every second. This will take away a second...every second.
-// TODO: Make sure that the timer doesn't start if the time is 0.
-// That is, make sure that after the user adds <x> amount of time, it doesn't go from
-// 15:00 -> 14:59 in less than a second.
+// Start a timer that executes every second.
+// setInterval is NOT used as the addon would start using a lot more CPU (from ~1% to 5% on my CPU)
 setTimeout(tickFunction, 1000);
 // Store the remaining amount of time in 30 second increments.
 setTimeout(saveFunction, 30000);
