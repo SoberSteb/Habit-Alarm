@@ -5,6 +5,7 @@ var pOneBtn = document.getElementById("spb_one");
 var pTwoBtn = document.getElementById("spb_two");
 var infoBtn = document.getElementById("info-button");
 var timeContainer = document.querySelector('.time-container');
+var timerBackground = document.querySelector('.timer-background');
 var timer = document.querySelector('.timer');
 // Get all the buttons that add time.
 var addBtns = document.querySelectorAll('.add');
@@ -54,6 +55,7 @@ ublckBtn.addEventListener('click', unblacklistWebsite);
 clearBtn.addEventListener('click', clearBlacklist);
 clearTimeBtn.addEventListener('click', clearTime);
 
+fixDisplay(); // Used to fix inconsistency in Ubuntu.
 updateDisplay(); // Just to overwrite anything that the button says.
 switchPage(1); // Make the buttons look pretty, since the initial css isn't quite good.
 
@@ -61,6 +63,35 @@ setInterval(mainLoop, FRAMERATE);
 
 function onError(error) {
 	console.log(error);
+}
+
+function fixDisplay() {
+	var operating_system = navigator.platform.toLowerCase();
+	
+	// If the browser is running in a linux machine, fix the time display.
+	// I have NO idea how to fix this without writing hacky os-specific code.
+	// The problem (as far as I know) has to do with how linux (at least ubuntu) handles custom fonts differently.
+	if(operating_system.includes("linux")) {
+		// Change timer paragraph
+		timer.style.cssText = `
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 70%;
+			width: 92.5%;
+			padding-top: 1%;
+			padding-bottom: 5%;
+			border-radius: 10px;
+			font-family: "Digital";
+			font-size: 3em;
+			text-align: center;
+			color: #FB0206;
+			background-color: #500104;`;
+		// Change timer background
+		timerBackground.style.cssText = `
+			padding-top: 1.75%;
+			padding-bottom: 1.75%;`;
+	}
 }
 
 /*
