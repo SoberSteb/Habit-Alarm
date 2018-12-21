@@ -91,6 +91,19 @@ function fixDisplay() {
 		timerBackground.style.cssText = `
 			padding-top: 1.75%;
 			padding-bottom: 1.75%;`;
+	} else {
+		// Change font for Windows (and Mac) to emulate what appears on linux (at least ubuntu).
+		document.body.style.cssText = `
+			width: 250px;
+			height: 350px;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-family: "Times New Roman", Times, serif;`;
+		let buttons = document.querySelectorAll('.button');
+		for(var i=0; i<10; i++) {
+			buttons[i].style.fontSize = "1.7em";
+		}
 	}
 }
 
