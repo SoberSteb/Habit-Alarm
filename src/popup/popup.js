@@ -301,7 +301,7 @@ function popURLFromBlacklist(tabs) {
 	trimmed_tab_url = trimURL(tab_url);
 	
 	// Now that the domain name is isolated, make sure that it's in the blacklist so that it can be popped.
-	if(!global_bg_script.checkBlacklistMatch(trimmed_tab_url)) {
+	if(!global_bg_script.checkBlacklistMatch(trimmed_tab_url) || trimmed_tab_url === "") {
 		return;
 	}
 
