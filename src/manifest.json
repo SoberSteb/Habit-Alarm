@@ -2,12 +2,18 @@
 
 	"manifest_version": 2,
 	"name": "Habit Alarm",
-	"version": "1.0.0.4",
+	"version": "1.0.0.5",
 
 	"description": "Do productive tasks in exchange for more browsing time!",
 
 	"icons": {
 		"48": "icons/border-48.png"
+	},
+
+	"applications": {
+		"gecko": {
+			"id": "addon@habitalarm.com"
+		}
 	},
 
 	"browser_action": {

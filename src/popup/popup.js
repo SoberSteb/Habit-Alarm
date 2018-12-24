@@ -196,7 +196,9 @@ function SGT(time) {
  * Updates the time display with the current time.
  */
 function updateDisplay() {
-	timer.innerHTML = formatTime();
+	var new_time = document.createTextNode(formatTime());
+	timer.removeChild(timer.firstChild);
+	timer.appendChild(new_time);
 }
 
 /*
